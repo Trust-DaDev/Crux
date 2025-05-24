@@ -1,0 +1,49 @@
+@keyframes vibrate {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(-3px, -3px); }
+  60% { transform: translate(3px, 3px); }
+  80% { transform: translate(3px, -3px); }
+  100% { transform: translate(0); }
+}
+.vibrate {
+  animation: vibrate 0.3s ease-in-out;
+}
+
+#cursor {
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease-out;
+    }
+
+    @keyframes zoomPan {
+      0% {
+        background-position: top left;
+        background-size: 110%;
+      }
+      50% {
+        background-position: bottom right;
+        background-size: 130%;
+      }
+      100% {
+        background-position: bottom left;
+        background-size: 110%;
+      }
+    }
+    @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 12px 4px rgba(253, 224, 71, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px 8px rgba(253, 224, 71, 0.8);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+    .animated-bg {
+      animation: zoomPan 40s ease-in-out infinite;
+      background-repeat: no-repeat;
+      background-size: 110%;
+      background-position: top left;
+    }

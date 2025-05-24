@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Crux Social DApp</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
@@ -108,41 +109,52 @@ tailwind.config = {
     const postContent = document.getElementById('postContent');
     const createPostBtn = document.getElementById('createPost');
     const postsContainer = document.getElementById('posts');
+    const welcomeDiv = document.getElementById('welcomeName');
+
 
     // Dark mode init
     let darkMode = localStorage.getItem('darkMode') === 'true';
 
-    function applyMode() {
-      if(darkMode) {
-        body.classList.remove('bg-light', 'text-gray-800');
-        body.classList.add('bg-black', 'text-gray-200');
+    // this for welcome +name
+function applyMode() {
+  if (darkMode) {
+    body.classList.remove('bg-light', 'text-gray-800');
+    body.classList.add('bg-black', 'text-gray-200');
 
-        navbar.classList.remove('bg-white');
-        navbar.classList.add('bg-gray-900');
+    navbar.classList.remove('bg-white');
+    navbar.classList.add('bg-gray-900');
 
-        sections.forEach(sec => {
-          sec.classList.remove('bg-white');
-          sec.classList.add('bg-gray-800');
-        });
+    sections.forEach(sec => {
+      sec.classList.remove('bg-white');
+      sec.classList.add('bg-gray-800');
+    });
 
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-      } else {
-        body.classList.add('bg-light', 'text-gray-800');
-        body.classList.remove('bg-black', 'text-gray-200');
+    sunIcon.classList.add('hidden');
+    moonIcon.classList.remove('hidden');
 
-        navbar.classList.add('bg-white');
-        navbar.classList.remove('bg-gray-900');
+    // Dark mode welcome name color and shadow
+    welcomeDiv.style.color = '#ffffff';  // white
+    welcomeDiv.style.textShadow = '0 0 8px rgba(255, 255, 255, 0.6)';
+  } else {
+    body.classList.add('bg-light', 'text-gray-800');
+    body.classList.remove('bg-black', 'text-gray-200');
 
-        sections.forEach(sec => {
-          sec.classList.add('bg-white');
-          sec.classList.remove('bg-gray-800');
-        });
+    navbar.classList.add('bg-white');
+    navbar.classList.remove('bg-gray-900');
 
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-      }
-    }
+    sections.forEach(sec => {
+      sec.classList.add('bg-white');
+      sec.classList.remove('bg-gray-800');
+    });
+
+    sunIcon.classList.remove('hidden');
+    moonIcon.classList.add('hidden');
+
+    // Light mode welcome name color and shadow
+    welcomeDiv.style.color = '#4b5563'; // Tailwind gray-600
+    welcomeDiv.style.textShadow = '0 0 5px rgba(0,0,0,0.15)';
+  }
+}
 
     toggle.addEventListener('click', () => {
       darkMode = !darkMode;

@@ -15,5 +15,8 @@
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.23.0",
     "tailwindcss": "^4.1.4"
+  },
+  "dependencies": {
+    "web3": "^4.16.0"
   }
 }
