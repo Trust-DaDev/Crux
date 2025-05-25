@@ -6,7 +6,7 @@
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@600&family=Outfit:wght@400;700&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -14,7 +14,8 @@
         extend: {
           fontFamily: {
             inter: ['Inter', 'sans-serif'],
-            crux: ['Orbitron', 'sans-serif']
+            crux: ['Orbitron', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif']
           },
           colors: {
             crux: '#814AC8',
@@ -30,20 +31,7 @@
       }
     }
   </script>
-  <style>
-    body {
-      padding-top: 4rem;
-      transition: background-color 0.5s ease, color 0.5s ease;
-    }
-    #welcomeName {
-      color: #4b5563;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-      text-shadow: 0 0 5px rgba(0,0,0,0.15);
-      transition: color 0.3s ease;
-    }
-  </style>
+  
 </head>
 <body class="bg-light text-gray-800 transition-colors duration-500">
 
@@ -60,26 +48,24 @@
 
   <!-- Navbar -->
   <nav class="fixed top-0 left-0 right-0 bg-white shadow-md flex items-center justify-between px-6 h-16 z-50 transition-colors duration-500">
-    <div class="text-2xl font-bold text-crux">Crux Social</div>
+    <div class="text-2xl font-bold text-crux">Crux </div>
     <div class="flex items-center space-x-4">
       <div id="welcomeName" class="text-gray-600 dark:text-white font-bold text-xl font-sans hidden shadow-lg px-2 py-1 rounded-md"></div>
       <button id="darkModeToggle" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition" aria-label="Toggle Dark Mode">
         <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M7.05 7.05L5.636 5.636m12.728 0l-1.414 1.414M7.05 16.95l-1.414 1.414M12 7a5 5 0 100 10 5 5 0 000-10z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M7.05 7.05L5.636 5.636m12.728 0l-1.414 1.414M7.05 16.95l-1.414 1.414M12 7a5 5 0 100 10 5 5 0 000-10z" />
         </svg>
         <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
         </svg>
       </button>
     </div>
   </nav>
 
   <!-- Main -->
-  <main class="max-w-4xl mx-auto p-6 space-y-6 transition-colors duration-500">
+  <main class="max-w-4xl mt-20 mx-auto p-6 space-y-6 transition-colors duration-500">
     <section class="bg-white rounded-2xl shadow-md p-6 transition-colors duration-500">
-      <h2 class="text-xl font-semibold mb-4 text-coolYellow">Create a Post</h2>
+      <h2 class="text-lg font-[Outfit] font-semibold mb-4 text-coolYellow">What's on your mind?</h2>
       <textarea id="postContent" rows="4" placeholder="What's on your mind?"
         class="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-crux resize-none"></textarea>
       <button id="createPost"
@@ -90,99 +76,8 @@
   </main>
 
   <script>
-    const toggle = document.getElementById('darkModeToggle');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    const body = document.body;
-    const navbar = document.querySelector('nav');
-    const main = document.querySelector('main');
-    const sections = document.querySelectorAll('section');
-    const postContent = document.getElementById('postContent');
-    const createPostBtn = document.getElementById('createPost');
-    const postsContainer = document.getElementById('posts');
-    const welcomeDiv = document.getElementById('welcomeName');
-    const nameModal = document.getElementById('nameModal');
-    const nameInput = document.getElementById('nameInput');
-    const submitName = document.getElementById('submitName');
+    
 
-    let darkMode = localStorage.getItem('darkMode') === 'true';
-
-    function applyMode() {
-      if (darkMode) {
-        body.classList.remove('bg-light', 'text-gray-800');
-        body.classList.add('bg-black', 'text-gray-200');
-        navbar.classList.remove('bg-white');
-        navbar.classList.add('bg-gray-900');
-        sections.forEach(sec => sec.classList.replace('bg-white', 'bg-gray-800'));
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-        welcomeDiv.style.color = '#ffffff';
-        welcomeDiv.style.textShadow = '0 0 8px rgba(255, 255, 255, 0.6)';
-      } else {
-        body.classList.add('bg-light', 'text-gray-800');
-        body.classList.remove('bg-black', 'text-gray-200');
-        navbar.classList.add('bg-white');
-        navbar.classList.remove('bg-gray-900');
-        sections.forEach(sec => sec.classList.replace('bg-gray-800', 'bg-white'));
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-        welcomeDiv.style.color = '#4b5563';
-        welcomeDiv.style.textShadow = '0 0 5px rgba(0,0,0,0.15)';
-      }
-    }
-
-    toggle.addEventListener('click', () => {
-      darkMode = !darkMode;
-      localStorage.setItem('darkMode', darkMode);
-      applyMode();
-    });
-
-    applyMode();
-
-    if (!localStorage.getItem('username')) {
-      nameModal.classList.remove('hidden');
-    } else {
-      welcomeDiv.textContent = `Hi, ${localStorage.getItem('username')} 👋`;
-      welcomeDiv.classList.remove('hidden');
-      nameModal.classList.add('hidden');
-    }
-
-    submitName.addEventListener('click', () => {
-      const name = nameInput.value.trim();
-      if (name) {
-        localStorage.setItem('username', name);
-        welcomeDiv.textContent = `Hi, ${name} 👋`;
-        welcomeDiv.classList.remove('hidden');
-        nameModal.classList.add('hidden');
-      }
-    });
-
-    createPostBtn.addEventListener('click', () => {
-      const content = postContent.value.trim();
-      if (!content) return alert('Please write something before posting.');
-      const name = localStorage.getItem('username') || "Anonymous";
-
-      const postEl = document.createElement('div');
-      postEl.className = "bg-gray-100 dark:bg-gray-700 p-4 rounded-xl shadow-sm space-y-3";
-
-      postEl.innerHTML = `
-        <div class="text-sm font-bold text-gray-700 dark:text-gray-300">${name}</div>
-        <div class="text-lg font-crux text-crux">${content}</div>
-        <div class="flex space-x-3 mt-2">
-          <span class="cursor-pointer text-xl hover:scale-110 transition">😀</span>
-          <span class="cursor-pointer text-xl hover:scale-110 transition">❤️</span>
-          <span class="cursor-pointer text-xl hover:scale-110 transition">🔥</span>
-          <span class="cursor-pointer text-xl hover:scale-110 transition">👍</span>
-        </div>
-        <div class="mt-4">
-          <textarea rows="2" placeholder="Write a reply..." class="w-full p-2 text-sm border border-gray-300 rounded-md dark:bg-gray-600 dark:text-white"></textarea>
-          <button class="mt-2 px-4 py-1 bg-coolYellow text-black font-semibold rounded-md hover:bg-yellow-500 transition">Reply</button>
-        </div>
-      `;
-
-      postsContainer.prepend(postEl);
-      postContent.value = '';
-    });
   </script>
   <script src="app.js"></script>
 </body>

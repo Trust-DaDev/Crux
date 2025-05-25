@@ -1,3 +1,130 @@
+const toggle = document.getElementById('darkModeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const body = document.body;
+    const navbar = document.querySelector('nav');
+    const main = document.querySelector('main');
+    const sections = document.querySelectorAll('section');
+    const postContent = document.getElementById('postContent');
+    const createPostBtn = document.getElementById('createPost');
+    const postsContainer = document.getElementById('posts');
+    const welcomeDiv = document.getElementById('welcomeName');
+    const nameModal = document.getElementById('nameModal');
+    const nameInput = document.getElementById('nameInput');
+    const submitName = document.getElementById('submitName');
+
+    let darkMode = localStorage.getItem('darkMode') === 'true';
+
+    function applyMode() {
+      if (darkMode) {
+        body.classList.remove('bg-light', 'text-gray-800');
+        body.classList.add('bg-black', 'text-gray-200');
+        navbar.classList.remove('bg-white');
+        navbar.classList.add('bg-gray-900');
+        sections.forEach(sec => sec.classList.replace('bg-white', 'bg-gray-800'));
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+        welcomeDiv.style.color = '#ffffff';
+        welcomeDiv.style.textShadow = '0 0 8px rgba(255, 255, 255, 0.6)';
+      } else {
+        body.classList.add('bg-light', 'text-gray-800');
+        body.classList.remove('bg-black', 'text-gray-200');
+        navbar.classList.add('bg-white');
+        navbar.classList.remove('bg-gray-900');
+        sections.forEach(sec => sec.classList.replace('bg-gray-800', 'bg-white'));
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+        welcomeDiv.style.color = '#4b5563';
+        welcomeDiv.style.textShadow = '0 0 5px rgba(0,0,0,0.15)';
+      }
+    }
+
+    toggle.addEventListener('click', () => {
+      darkMode = !darkMode;
+      localStorage.setItem('darkMode', darkMode);
+      applyMode();
+    });
+
+    applyMode();
+
+    if (!localStorage.getItem('username')) {
+      nameModal.classList.remove('hidden');
+    } else {
+      welcomeDiv.textContent = `Hi, ${localStorage.getItem('username')} 👋`;
+      welcomeDiv.classList.remove('hidden');
+      nameModal.classList.add('hidden');
+    }
+
+    submitName.addEventListener('click', () => {
+      const name = nameInput.value.trim();
+      if (name) {
+        localStorage.setItem('username', name);
+        welcomeDiv.textContent = `Hi, ${name} 👋`;
+        welcomeDiv.classList.remove('hidden');
+        nameModal.classList.add('hidden');
+      }
+    });
+
+    createPostBtn.addEventListener('click', () => {
+  const content = postContent.value.trim();
+  if (!content) return alert('Please write something before posting.');
+  const name = localStorage.getItem('username') || "Anonymous";
+
+  const postEl = document.createElement('div');
+  postEl.className = "bg-white shadow-md rounded-2xl p-6 space-y-3 transition-colors duration-500";
+
+
+
+
+  postEl.innerHTML = `
+    <div class="text-sm font-bold text-gray-700 dark:text-gray-300 font-[Outfit]">${name}</div>
+    <div class="text-lg font-crux text-crux">${content}</div>
+    
+    <div class="flex flex-wrap items-center justify-between space-y-2 sm:space-y-0 gap-3">
+      <div class="flex space-x-3">
+        <span class="cursor-pointer text-xl hover:scale-110 transition">😀</span>
+        <span class="cursor-pointer text-xl hover:scale-110 transition">❤️</span>
+        <span class="cursor-pointer text-xl hover:scale-110 transition">🔥</span>
+        <span class="cursor-pointer text-xl hover:scale-110 transition">👍</span>
+      </div>
+      <div class="flex-1 flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Write a reply..."
+          class="reply-input w-full text-sm bg-transparent font-[Outfit] text-gray-800 dark:text-white border-0 border-b-2 border-black dark:border-white focus:outline-none focus:border-blue-400 transition-colors"
+        />
+        <button
+          class="reply-btn px-6 py-2 bg-crux text-white font-semibold rounded-full hover:bg-[#6f3ec1] transition"
+        >Reply</button>
+      </div>
+    </div>
+
+    <div class="replies space-y-2 mt-4"></div>
+  `;
+
+  postsContainer.prepend(postEl);
+  postContent.value = '';
+
+  // Add reply logic
+  const replyInput = postEl.querySelector('.reply-input');
+  const replyBtn = postEl.querySelector('.reply-btn');
+  const repliesContainer = postEl.querySelector('.replies');
+
+  replyBtn.addEventListener('click', () => {
+    const replyText = replyInput.value.trim();
+    if (!replyText) return;
+
+    const replyEl = document.createElement('div');
+    replyEl.className = "p-3 rounded-lg font-[Outfit] text-sm bg-gray-200 text-black dark:bg-gray-700 dark:text-gray-200 transition";
+
+    replyEl.textContent = replyText;
+    repliesContainer.appendChild(replyEl);
+    replyInput.value = '';
+  });
+});
+
+
+
 const walletConnected = localStorage.getItem("walletConnected");
 if (walletConnected === "true") {
   // Hide name modal

@@ -1,0 +1,24 @@
+body {
+      padding-top: 4rem;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+    #welcomeName {
+      color: #4b5563;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      text-shadow: 0 0 5px rgba(0,0,0,0.15);
+      transition: color 0.3s ease;
+    }
+    .reply-input {
+      border: none;
+      border-bottom: 2px solid black;
+      transition: border-color 0.3s;
+    }
+    .reply-input:focus {
+      outline: none;
+      border-color: #3B82F6;
+    }
+    .dark .reply-input {
+      border-color: white;
+    }
