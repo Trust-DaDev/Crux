@@ -1,111 +1,111 @@
 const toggle = document.getElementById('darkModeToggle');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    const body = document.body;
-    const navbar = document.querySelector('nav');
-    const main = document.querySelector('main');
-    const sections = document.querySelectorAll('section');
-    const postContent = document.getElementById('postContent');
-    const createPostBtn = document.getElementById('createPost');
-    const postsContainer = document.getElementById('posts');
-    const welcomeDiv = document.getElementById('welcomeName');
-    const nameModal = document.getElementById('nameModal');
-    const nameInput = document.getElementById('nameInput');
-    const submitName = document.getElementById('submitName');
+const sunIcon = document.getElementById('sunIcon');
+const moonIcon = document.getElementById('moonIcon');
+const body = document.body;
+const navbar = document.querySelector('nav');
+const main = document.querySelector('main');
+const sections = document.querySelectorAll('section');
+const postContent = document.getElementById('postContent');
+const createPostBtn = document.getElementById('createPost');
+const postsContainer = document.getElementById('posts');
+const welcomeDiv = document.getElementById('welcomeName');
+const nameModal = document.getElementById('nameModal');
+const nameInput = document.getElementById('nameInput');
+const submitName = document.getElementById('submitName');
 
-    let darkMode = localStorage.getItem('darkMode') === 'true';
+let darkMode = localStorage.getItem('darkMode') === 'true';
 
-    function applyMode() {
-      if (darkMode) {
-        body.classList.remove('bg-light', 'text-gray-800');
-        body.classList.add('bg-black', 'text-gray-200');
-        navbar.classList.remove('bg-white');
-        navbar.classList.add('bg-gray-900');
-        sections.forEach(sec => sec.classList.replace('bg-white', 'bg-gray-800'));
-        sunIcon.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-        welcomeDiv.style.color = '#ffffff';
-        welcomeDiv.style.textShadow = '0 0 8px rgba(255, 255, 255, 0.6)';
-      } else {
-        body.classList.add('bg-light', 'text-gray-800');
-        body.classList.remove('bg-black', 'text-gray-200');
-        navbar.classList.add('bg-white');
-        navbar.classList.remove('bg-gray-900');
-        sections.forEach(sec => sec.classList.replace('bg-gray-800', 'bg-white'));
-        sunIcon.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-        welcomeDiv.style.color = '#4b5563';
-        welcomeDiv.style.textShadow = '0 0 5px rgba(0,0,0,0.15)';
-      }
-    }
+function applyMode() {
+  if (darkMode) {
+    body.classList.remove('bg-light', 'text-gray-800');
+    body.classList.add('bg-black', 'text-gray-200');
+    navbar.classList.remove('bg-white');
+    navbar.classList.add('bg-gray-900');
+    sections.forEach(sec => sec.classList.replace('bg-white', 'bg-gray-800'));
+    sunIcon.classList.add('hidden');
+    moonIcon.classList.remove('hidden');
+    welcomeDiv.style.color = '#ffffff';
+    welcomeDiv.style.textShadow = '0 0 8px rgba(255, 255, 255, 0.6)';
+  } else {
+    body.classList.add('bg-light', 'text-gray-800');
+    body.classList.remove('bg-black', 'text-gray-200');
+    navbar.classList.add('bg-white');
+    navbar.classList.remove('bg-gray-900');
+    sections.forEach(sec => sec.classList.replace('bg-gray-800', 'bg-white'));
+    sunIcon.classList.remove('hidden');
+    moonIcon.classList.add('hidden');
+    welcomeDiv.style.color = '#4b5563';
+    welcomeDiv.style.textShadow = '0 0 5px rgba(0,0,0,0.15)';
+  }
+}
 
-    toggle.addEventListener('click', () => {
-      darkMode = !darkMode;
-      localStorage.setItem('darkMode', darkMode);
-      applyMode();
-    });
+toggle.addEventListener('click', () => {
+  darkMode = !darkMode;
+  localStorage.setItem('darkMode', darkMode);
+  applyMode();
+});
 
-    applyMode();
+applyMode();
 
-    if (!localStorage.getItem('username')) {
-      nameModal.classList.remove('hidden');
-    } else {
-      welcomeDiv.textContent = `Hi, ${localStorage.getItem('username')} 👋`;
-      welcomeDiv.classList.remove('hidden');
-      nameModal.classList.add('hidden');
-    }
+if (!localStorage.getItem('username')) {
+  nameModal.classList.remove('hidden');
+} else {
+  welcomeDiv.textContent = `Hi, ${localStorage.getItem('username')} 👋`;
+  welcomeDiv.classList.remove('hidden');
+  nameModal.classList.add('hidden');
+}
 
-    submitName.addEventListener('click', () => {
-      const name = nameInput.value.trim();
-      if (name) {
-        localStorage.setItem('username', name);
-        welcomeDiv.textContent = `Hi, ${name} 👋`;
-        welcomeDiv.classList.remove('hidden');
-        nameModal.classList.add('hidden');
-      }
-    });
+submitName.addEventListener('click', () => {
+  const name = nameInput.value.trim();
+  if (name) {
+    localStorage.setItem('username', name);
+    welcomeDiv.textContent = `Hi, ${name} 👋`;
+    welcomeDiv.classList.remove('hidden');
+    nameModal.classList.add('hidden');
+  }
+});
 
-    createPostBtn.addEventListener('click', () => {
+createPostBtn.addEventListener('click', () => {
   const content = postContent.value.trim();
   if (!content) return alert('Please write something before posting.');
   const name = localStorage.getItem('username') || "Anonymous";
 
   const postEl = document.createElement('div');
-  postEl.className = "bg-white shadow-md rounded-2xl p-6 space-y-3 transition-colors duration-500";
+  postEl.className = "bg-white shadow-md rounded-2xl p-6 space-y-3 transition-colors duration-500 relative";
 
-
-
-
+  // Removed the 3 dots menu button and delete button HTML here:
   postEl.innerHTML = `
-    <div class="text-sm font-bold text-gray-700 dark:text-gray-300 font-[Outfit]">${name}</div>
-    <div class="text-lg font-crux text-crux">${content}</div>
-    
-    <div class="flex flex-wrap items-center justify-between space-y-2 sm:space-y-0 gap-3">
-      <div class="flex space-x-3">
-        <span class="cursor-pointer text-xl hover:scale-110 transition">😀</span>
-        <span class="cursor-pointer text-xl hover:scale-110 transition">❤️</span>
-        <span class="cursor-pointer text-xl hover:scale-110 transition">🔥</span>
-        <span class="cursor-pointer text-xl hover:scale-110 transition">👍</span>
-      </div>
-      <div class="flex-1 flex items-center gap-2">
-        <input
-          type="text"
-          placeholder="Write a reply..."
-          class="reply-input w-full text-sm bg-transparent font-[Outfit] text-gray-800 dark:text-white border-0 border-b-2 border-black dark:border-white focus:outline-none focus:border-blue-400 transition-colors"
-        />
-        <button
-          class="reply-btn px-6 py-2 bg-crux text-white font-semibold rounded-full hover:bg-[#6f3ec1] transition"
-        >Reply</button>
-      </div>
+  <div class="flex justify-between items-center">
+    <div class="text-sm font-bold text-gray-700 dark:text-gray-800 font-[Outfit]">${name}</div>
+  </div>
+  <div class="text-lg font-crux text-crux mt-1 post-content">${content}</div>
+  
+  <div class="flex flex-wrap items-center justify-between space-y-2 sm:space-y-0 gap-3">
+    <div class="flex space-x-3">
+      <span class="cursor-pointer text-xl hover:scale-110 transition">😀</span>
+      <span class="cursor-pointer text-xl hover:scale-110 transition">❤️</span>
+      <span class="cursor-pointer text-xl hover:scale-110 transition">🔥</span>
+      <span class="cursor-pointer text-xl hover:scale-110 transition">👍</span>
     </div>
+    <div class="flex-1 flex items-center gap-2">
+      <input
+        type="text"
+        placeholder="Write a reply..."
+        class="reply-input w-full text-sm bg-transparent font-[Outfit] text-gray-800 dark:text-gray-700 border-0 border-b-2 border-black dark:border-black focus:outline-none focus:border-blue-400 transition-colors"
+      />
+      <button
+        class="reply-btn px-6 py-2 bg-crux text-white font-semibold font-[Outfit] rounded-full hover:bg-[#6f3ec1] transition"
+      >Reply</button>
+    </div>
+  </div>
 
-    <div class="replies space-y-2 mt-4"></div>
+  <div class="replies space-y-2 mt-4"></div>
   `;
 
   postsContainer.prepend(postEl);
   postContent.value = '';
 
-  // Add reply logic
+  // Reply logic
   const replyInput = postEl.querySelector('.reply-input');
   const replyBtn = postEl.querySelector('.reply-btn');
   const repliesContainer = postEl.querySelector('.replies');
@@ -114,31 +114,39 @@ const toggle = document.getElementById('darkModeToggle');
     const replyText = replyInput.value.trim();
     if (!replyText) return;
 
-    const replyEl = document.createElement('div');
-    replyEl.className = "p-3 rounded-lg font-[Outfit] text-sm bg-gray-200 text-black dark:bg-gray-700 dark:text-gray-200 transition";
+    const replierName = localStorage.getItem('username') || 'Anonymous';
 
-    replyEl.textContent = replyText;
+    const replyEl = document.createElement('div');
+    replyEl.className = "p-3 rounded-lg font-[Outfit] text-sm bg-gray-500 text-black dark:bg-gray-700 dark:text-gray-200 transition";
+
+    const nameEl = document.createElement('div');
+    nameEl.className = "font-bold text-xs mb-1";
+    nameEl.textContent = replierName;
+
+    const textEl = document.createElement('div');
+    textEl.textContent = replyText;
+
+    replyEl.appendChild(nameEl);
+    replyEl.appendChild(textEl);
+
     repliesContainer.appendChild(replyEl);
     replyInput.value = '';
   });
-});
 
+  // Removed menu toggle and delete functionality code here
+
+});
 
 
 const walletConnected = localStorage.getItem("walletConnected");
 if (walletConnected === "true") {
-  // Hide name modal
   document.getElementById("nameModal").style.display = "none";
-
-  // Optionally use wallet address instead of name
   const walletAddress = localStorage.getItem("userWallet");
   document.getElementById("welcomeName").textContent = `Welcome ${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
   document.getElementById("welcomeName").classList.remove("hidden");
 }
 
-
-
-const contractAddress = "0x8dAb63341E31f95D02A54cC2826945772073FBBa"; 
+const contractAddress = "0x8dAb63341E31f95D02A54cC2826945772073FBBa";
 const contractABI = [
   {
     "inputs": [{"internalType":"string","name":"_content","type":"string"}],
@@ -189,7 +197,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     modal.style.display = 'flex';
   }
 
-  // Initialize web3 and contract if wallet connected
   async function initWeb3AndContract() {
     if (typeof window.ethereum === 'undefined') {
       alert('MetaMask is not installed!');
@@ -204,7 +211,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       userAccount = accounts[0];
       contract = new web3.eth.Contract(contractABI, contractAddress);
 
-      // Optional: show account on UI somewhere
       const accountDiv = document.getElementById('account');
       if (accountDiv) accountDiv.textContent = userAccount;
 
@@ -258,5 +264,5 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   await checkConnectionAndName();
 
-  // You can continue to add your post creation and event listening code here...
+  // Add more Web3 and contract interaction logic here if needed...
 });

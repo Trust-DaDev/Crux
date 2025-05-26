@@ -22,3 +22,12 @@ body {
     .dark .reply-input {
       border-color: white;
     }
+    .post-menu {
+  position: absolute;
+  display: none;
+  /* Already handled by hidden class but useful here */
+}
+
+.post-menu.show {
+  display: block;
+}
